@@ -1,0 +1,106 @@
+﻿@model Alix.WebTester.ViewModels.Equipment.FirstTestViewModel
+
+@{
+    ViewBag.Title = "First Test";
+}
+
+<h2>Player</h2>
+<ul>
+    <li>
+        <strong>Current Hit Points:</strong>
+        <ul>
+            <li>Base: @Model.Player.CurrentHitPoints.GetBase()</li>
+            <li>Value: @Model.Player.CurrentHitPoints.Get()</li>
+        </ul>
+    </li>
+    <li>
+        <strong>Maximum Hit Points:</strong>
+        <ul>
+            <li>Base: @Model.Player.MaximumHitPoints.GetBase()</li>
+            <li>Value: @Model.Player.MaximumHitPoints.Get()</li>
+        </ul>
+    </li>
+    <li>
+        <strong>Current Magic Points:</strong>
+        <ul>
+            <li>Base: @Model.Player.CurrentMagicPoints.GetBase()</li>
+            <li>Value: @Model.Player.CurrentMagicPoints.Get()</li>
+        </ul>
+    </li>
+    <li>
+        <strong>Maximum Magic Points:</strong>
+        <ul>
+            <li>Base: @Model.Player.MaximumMagicPoints.GetBase()</li>
+            <li>Value: @Model.Player.MaximumMagicPoints.Get()</li>
+        </ul>
+    </li>
+    <li>
+        <strong>Strength:</strong>
+        <ul>
+            <li>Base: @Model.Player.Strength.GetBase()</li>
+            <li>Value: @Model.Player.Strength.Get()</li>
+        </ul>
+    </li>
+    <li>
+        <strong>Speed:</strong>
+        <ul>
+            <li>Base: @Model.Player.Speed.GetBase()</li>
+            <li>Value: @Model.Player.Speed.Get()</li>
+        </ul>
+    </li>
+    <li>
+        <strong>Intelligence:</strong>
+        <ul>
+            <li>Base: @Model.Player.Intelligence.GetBase()</li>
+            <li>Value: @Model.Player.Intelligence.Get()</li>
+        </ul>
+    </li>
+    <li>
+        <strong>Equipment:</strong>
+        <ul>
+            @foreach (var equipment in Model.Player.Equipment)
+            {
+                <li>@equipment.Value.Name</li>
+            }
+        </ul>
+    </li>
+</ul>
+
+<h2>Available Equipment</h2>
+
+<div class="row">
+    @foreach (var equipment in Model.Equipment)
+    {
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h1 class="panel-title">@equipment.Name</h1>
+                </div>
+                <div class="panel-body">
+                    <ul>
+                        <li><strong>Id:</strong> @equipment.Id</li>
+                        <li><strong>Slot:</strong> @equipment.Slot</li>
+                        <li>
+                            <strong>Addition Modifiers:</strong>
+                            <ul>
+                                @foreach (var modifier in equipment.AdditionModifiers)
+                                {
+                                    <li>@modifier.Key @modifier.Value.OutputValue</li>
+                                }
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Multiply Modifiers:</strong>
+                            <ul>
+                                @foreach (var modifier in equipment.MultiplyModifiers)
+                                {
+                                    <li>@modifier.Key @modifier.Value.OutputValue</li>
+                                }
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    }
+</div>
