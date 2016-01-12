@@ -9,6 +9,7 @@
     {
         public string Name { get; set; }
         public double Value { get; set; }
+        public IDice Dice { get; set; }
         public IList<IStatModifier> AdditionModifiers { get; set; }
         public IList<IStatModifier> MultiplyModifiers { get; set; }
 

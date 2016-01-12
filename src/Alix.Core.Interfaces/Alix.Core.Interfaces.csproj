@@ -38,9 +38,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IDice.cs" />
     <Compile Include="Enums\EquipmentSlot.cs" />
     <Compile Include="Enums\StatSlot.cs" />
     <Compile Include="IEquipment.cs" />
+    <Compile Include="ILeveler.cs" />
+    <Compile Include="ILevelUp.cs" />
     <Compile Include="IPlayer.cs" />
     <Compile Include="IStat.cs" />
     <Compile Include="IStatModifier.cs" />

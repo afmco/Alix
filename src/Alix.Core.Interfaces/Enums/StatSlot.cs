@@ -3,6 +3,7 @@
     public enum StatSlot
     {
         Strength,
+        Defense,
         Speed,
         Intelligence
     }

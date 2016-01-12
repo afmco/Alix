@@ -12,9 +12,17 @@
         IStat Strength { get; set; }
         IStat Speed { get; set; }
         IStat Intelligence { get; set; }
+        double ExperiencePoints { get; set; }
+        double Level { get; set; }
+        ILeveler Leveler { get; set; }
         Dictionary<EquipmentSlot, IEquipment> Equipment { get; set; }
 
         void Equip(IEquipment equipment);
         void UnEquip(EquipmentSlot slot);
+        bool IsEquipped(IEquipment equipment);
+        bool ReadyToLevelUp();
+        bool AddExperiencePoints(double experiencePoints);
+        ILevelUp CreateLevelUp();
+        void ApplyLevelUp(ILevelUp levelUp);
     }
 }

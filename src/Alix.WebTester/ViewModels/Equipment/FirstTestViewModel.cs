@@ -6,6 +6,7 @@
     public class FirstTestViewModel
     {
         public IPlayer Player { get; set; }
-        public IList<IEquipment> Equipment { get; set; } 
+        public IList<IEquipment> Equipment { get; set; }
+        public int ChosenEquipmentId { get; set; }
     }
 }
