@@ -7,6 +7,6 @@
     {
         double ExperiencePoints { get; set; }
         double Level { get; set; }
-        Dictionary<StatSlot, IDice> StatDice { get; set; }
+        Dictionary<DiceSlot, IDice> StatDice { get; set; }
     }
 }

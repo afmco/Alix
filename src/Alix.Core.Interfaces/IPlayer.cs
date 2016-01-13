@@ -13,6 +13,7 @@
         IStat Speed { get; set; }
         IStat Intelligence { get; set; }
         double ExperiencePoints { get; set; }
+        double NextLevelExperiencePoints { get; }
         double Level { get; set; }
         ILeveler Leveler { get; set; }
         Dictionary<EquipmentSlot, IEquipment> Equipment { get; set; }

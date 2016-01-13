@@ -15,6 +15,7 @@
         public IStat Speed { get; set; }
         public IStat Intelligence { get; set; }
         public double ExperiencePoints { get; set; }
+        public double NextLevelExperiencePoints => this.Leveler.NextLevelExperiencePoints(this.Level);
         public double Level { get; set; }
         public ILeveler Leveler { get; set; }
         public Dictionary<EquipmentSlot, IEquipment> Equipment { get; set; }
@@ -98,14 +99,16 @@
         {
             return new LevelUp
             {
-                ExperiencePoints = this.Leveler.NextLevelExperiencePoints(this.Level),
+                ExperiencePoints = this.Leveler.NextLevelExperiencePoints(this.Level) * -1,
                 Level = 1,
-                StatDice = new Dictionary<StatSlot, IDice>
+                StatDice = new Dictionary<DiceSlot, IDice>
                 {
-                    {StatSlot.Strength, this.Strength.Dice},
-                    {StatSlot.Defense, this.Defense.Dice},
-                    {StatSlot.Speed, this.Speed.Dice},
-                    {StatSlot.Intelligence, this.Intelligence.Dice}
+                    {DiceSlot.HitPoints, this.MaximumHitPoints.Dice},
+                    {DiceSlot.MagicPoints, this.MaximumMagicPoints.Dice},
+                    {DiceSlot.Strength, this.Strength.Dice},
+                    {DiceSlot.Defense, this.Defense.Dice},
+                    {DiceSlot.Speed, this.Speed.Dice},
+                    {DiceSlot.Intelligence, this.Intelligence.Dice}
                 }
             };
         }
@@ -113,6 +116,38 @@
         public void ApplyLevelUp(ILevelUp levelUp)
         {
             this.ExperiencePoints += levelUp.ExperiencePoints;
+
+            if (this.ExperiencePoints < 0)
+            {
+                this.ExperiencePoints = 0;
+            }
+
+            this.Level += levelUp.Level;
+
+            foreach (var statDie in levelUp.StatDice)
+            {
+                switch (statDie.Key)
+                {
+                    case DiceSlot.HitPoints:
+                        this.MaximumHitPoints.Value += statDie.Value.Roll();
+                        break;
+                    case DiceSlot.MagicPoints:
+                        this.MaximumMagicPoints.Value += statDie.Value.Roll();
+                        break;
+                    case DiceSlot.Strength:
+                        this.Strength.Value += statDie.Value.Roll();
+                        break;
+                    case DiceSlot.Defense:
+                        this.Defense.Value += statDie.Value.Roll();
+                        break;
+                    case DiceSlot.Speed:
+                        this.Speed.Value += statDie.Value.Roll();
+                        break;
+                    case DiceSlot.Intelligence:
+                        this.Intelligence.Value += statDie.Value.Roll();
+                        break;
+                }
+            }
         }
     }
 }

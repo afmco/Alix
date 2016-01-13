@@ -2,7 +2,7 @@
 {
     public class FastDice : Dice
     {
-        public FastDice() : base(3, 2)
+        public FastDice() : base(3, 6)
         {
         }
     }

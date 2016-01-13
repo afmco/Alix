@@ -2,7 +2,7 @@
 {
     public class MediumDice : Dice
     {
-        public MediumDice() : base(1, 3)
+        public MediumDice() : base(2, 6)
         {
         }
     }

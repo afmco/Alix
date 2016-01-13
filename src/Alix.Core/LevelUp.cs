@@ -8,6 +8,6 @@
     {
         public double ExperiencePoints { get; set; }
         public double Level { get; set; }
-        public Dictionary<StatSlot, IDice> StatDice { get; set; }
+        public Dictionary<DiceSlot, IDice> StatDice { get; set; }
     }
 }

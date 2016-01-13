@@ -1,9 +1,12 @@
 ﻿namespace Alix.Core.Tests
 {
     using System.Collections.Generic;
+    using System.Runtime.Remoting;
+    using Alix.Core.Die;
     using Alix.Core.Equipment;
     using Alix.Core.Interfaces;
     using Alix.Core.Interfaces.Enums;
+    using Alix.Core.Levelers;
     using Alix.Core.Stats;
     using NUnit.Framework;
 
@@ -148,6 +151,38 @@
             // Assert
             Assert.AreEqual(player.Strength.GetBase(), 100);
             Assert.AreEqual(player.Strength.Get(), 121);
+        }
+
+        [Test]
+        public void LevelUpTest()
+        {
+            // Arrange
+            var player = new Player
+            {
+                CurrentHitPoints = new HitPoints(100),
+                MaximumHitPoints = new HitPoints(100) { Dice = new Dice(3, 6, 100) },
+                CurrentMagicPoints = new MagicPoints(100),
+                MaximumMagicPoints = new MagicPoints(100) { Dice = new Dice(3, 6, 50) },
+                Strength = new Strength(100) { Dice = new FastDice() },
+                Defense = new Defense(100) { Dice = new MediumDice() },
+                Intelligence = new Intelligence(100) { Dice = new SlowDice() },
+                Speed = new Speed(100) { Dice = new MediumDice() },
+                Level = 1,
+                Leveler = new PlayerLeveler(),
+                ExperiencePoints = 0
+            };
+
+            // Act
+            double experiencePoints = 1000;
+            while (experiencePoints >= player.NextLevelExperiencePoints)
+            {
+                experiencePoints -= player.NextLevelExperiencePoints;
+                var levelUp = player.CreateLevelUp();
+                player.ApplyLevelUp(levelUp);
+            }
+
+            // Assert
+            Assert.AreEqual(2, player.Level);
         }
     }
 }

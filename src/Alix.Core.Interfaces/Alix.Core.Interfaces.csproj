@@ -38,6 +38,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\DiceSlot.cs" />
     <Compile Include="IDice.cs" />
     <Compile Include="Enums\EquipmentSlot.cs" />
     <Compile Include="Enums\StatSlot.cs" />
